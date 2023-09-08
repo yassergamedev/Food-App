@@ -1,16 +1,20 @@
 import React, { useState } from 'react'
 import { TextInput, Text, Button, StyleSheet, View } from 'react-native'
 import { AntDesign } from '@expo/vector-icons';
-export default function SearchBar() {
-    const [input, setInput] = useState("")
+export default function SearchBar({term, onTermChange, onTermSubmit}) {
+   
   return (
     <View style={styles.viewStyle}>
         <AntDesign name="search1" size={30} color="black"  />
+
         <TextInput 
-        value={input} 
+        autoCapitalize='none'
+        value={term} 
         placeholder='Click Here to Search'
          style={styles.inputStyle}
-         onChangeText={newValue => setInput(newValue)} / >  
+         onEndEditing={onTermSubmit}
+         onChangeText={onTermChange} / >
+          
     </View>
   )
 }
