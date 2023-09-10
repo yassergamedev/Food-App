@@ -7,17 +7,26 @@ import ResultsList from '../Components/ResultsList'
 export default function SearchScreen() {
   const [term, setTerm] =  useState("")
   const [searchApi, results] = useResults()
+
+
+  const filterResultsByPrice = (price)=>{
+
+   return results.filter(result=>{
+      return result.price === price
+    })
+  }
+
   return (
-    <View>
+    <View style={{flex : 1}}>
       
       <SearchBar 
       term={term}
       onTermChange={setTerm}
       onTermSubmit={searchApi}/>
     <Text>We Have Found {results.length} results </Text>
-    <ResultsList title='Effective Price'/>
-    <ResultsList title='A bit Pricier'/>
-    <ResultsList title='Expensive'/>
+    <ResultsList results={filterResultsByPrice('$')} title="Cost Effective" />
+    <ResultsList results={filterResultsByPrice('$$')} title="A bit Pricier" />
+    <ResultsList results={filterResultsByPrice('$$$')} title="Expensive" />
     </View>
   )
 }
